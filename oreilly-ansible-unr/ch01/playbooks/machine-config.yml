@@ -1,0 +1,8 @@
+---
+  - name: "testserver"
+    box: "ubuntu/xenial64"
+    url: "https://app.vagrantup.com/ubuntu/boxes/xenial64"
+    cpu: 1
+    memory: 1024
+    ip:    192.168.33.33
+    nodes: 1

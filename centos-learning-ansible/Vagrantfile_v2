@@ -1,0 +1,59 @@
+boxes = [
+{
+    :name => "ff1",
+    :ip => "10.0.2.11",
+    :ssh_port => "2221",
+    :https_port => "4441",
+    :mac =>  "0800270fa302",
+    :memory => "8192",
+    :cpus => "4"
+},
+{
+    :name => "ff2",
+    :ip => "10.0.2.12",
+    :ssh_port => "2222",
+    :https_port => "4442",
+    :mac =>  "0800270fb302",
+    :memory => "8192",
+    :cpus => "4"
+},
+{
+    :name => "ff3",
+    :ip => "10.0.2.13",
+    :ssh_port => "2223",
+    :https_port => "4443",
+    :mac =>  "0800270fc302",
+    :intnet2 => "seg5a",
+    :memory => "8192",
+    :cpus => "4"
+}
+]
+
+Vagrant.configure(2) do |config|
+boxes.each do |opts|
+    config.vm.define opts[:name] do |config|
+
+        config.vm.box = "ff"
+        #config.vm.box_version = 402
+
+        config.vm.hostname = opts[:name]
+
+        config.ssh.username = 'niska'
+        config.ssh.private_key_path = '/home/niska/.ssh/id_rsa'
+        config.vm.network :private_network, ip: opts[:ip]
+        config.vm.network :forwarded_port, guest: 22, guest_ip: opts[:ip], host: opts[:ssh_port], id: 'ssh'
+        config.vm.network :forwarded_port, guest: 443, host: opts[:https_port]
+
+        config.vm.provider "virtualbox" do |vb|
+            vb.gui = false
+            vb.memory = opts[:memory]
+            vb.cpus = opts[:cpus]
+
+            vb.customize ["modifyvm", :id, "--nic1", "natnetwork"]
+            vb.customize ["modifyvm", :id, "--nictype1", "virtio"]
+            vb.customize ["modifyvm", :id, "--macaddress1", opts[:mac]]
+            #vb.customize ["modifyvm", :id, "--intnet1", "ff_mgmt"]
+
+        end
+    end
+end

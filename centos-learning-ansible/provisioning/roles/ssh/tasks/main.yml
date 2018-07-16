@@ -1,0 +1,75 @@
+---
+
+# vars:
+#   users:
+#     - name: architect
+#       sudoer: yes
+#       auth_key: ssh-rsa ...
+
+
+- name: Ensure plone_group
+  group: name=plone_group
+- name: Add users
+  user:
+    name={{ item.name }}
+    system={{ item.sudoer }}
+    shell=/bin/bash
+    append=yes
+    groups={{ item.group  }}
+    # this is just a default password, I think it's SHA512 for "changeme"
+    password=$6$rounds=656000$iO7Q9L6/w8dUUQVf$rmtnxrQ15TGAfG5ODxQ/WGyEpTwk.vD1W.UtedmOlo9YNkrIwapYMjmKmteEnUJmRYucgUVxXUQy7gtenpLmw0
+    update_password=on_create
+  when: item.group is defined
+  with_items: users
+
+- name: Add users
+  user:
+    name={{ item.name }}
+    system={{ item.sudoer }}
+    shell=/bin/bash
+    password=$6$rounds=656000$iO7Q9L6/w8dUUQVf$rmtnxrQ15TGAfG5ODxQ/WGyEpTwk.vD1W.UtedmOlo9YNkrIwapYMjmKmteEnUJmRYucgUVxXUQy7gtenpLmw0
+    update_password=on_create
+  when: item.group is not defined
+  with_items: users
+
+- name: Add .ssh directories
+  file:
+    path=/home/{{ item.name }}/.ssh
+    state=directory
+    mode=0700
+    owner={{ item.name }}
+    group={{ item.group|default(item.name)  }}
+  with_items: users
+
+- name: Add keys
+  lineinfile:
+    dest=/home/{{ item.name }}/.ssh/authorized_keys
+    state=present
+    create=yes
+    line="{{ item.auth_key }}"
+    owner={{ item.name }}
+    group={{ item.group|default(item.name)  }}
+    mode=0644
+  when: item.auth_key is defined
+  with_items: users
+
+- name: Add to sudoers
+  copy:
+    dest: /etc/sudoers.d/{{ item.name }}
+    content: |
+             {{ item.name }}  ALL=(ALL) ALL
+             {{ item.name }}  ALL=(plone_daemon, plone_buildout) NOPASSWD:ALL
+             {{ item.name }}  ALL=(root) NOPASSWD:/usr/bin/supervisorctl
+             #
+  when: item.sudoer
+  with_items: users
+
+- name: SSH keys
+  copy:
+    src={{ item.keyfiles }}/
+    dest=/home/{{ item.name }}/.ssh/
+    owner={{ item.name }}
+    group={{ item.group|default(item.name) }}
+    mode=0600
+  when: item.keyfiles is defined
+  with_items: users

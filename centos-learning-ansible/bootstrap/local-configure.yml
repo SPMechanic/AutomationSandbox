@@ -1,0 +1,19 @@
+---
+users:
+- name: architect
+  group: admin
+  auth_key: ssh-rsa blahblahblahsomekey this is actually the public key in cleartext
+  keyfiles: keyfiles/architect
+- name: ansible
+  sudoer: yes
+  auth_key: ssh-rsa blahblahblahsomekey this is actually the public key in cleartext
+  keyfiles: keyfiles/ansible
+- name: vagrant
+  sudoer: yes
+  auth_key: ssh-rsa blahblahblahsomekey this is actually the public key in cleartext
+  keyfiles: keyfiles/vagrant
+- name: plone_buildout
+  group: plone_group
+  sudoer: no
+  auth_key: ssh-rsa blahblahblah ansible-generated on default
+  keyfiles: keyfiles/plone_buildout

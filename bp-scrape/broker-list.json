@@ -1,0 +1,544 @@
+{
+	"brokers": [
+		{
+			"Code": "PP",
+			"Name": "ALDIRACITA SEKURITAS INDONESIA",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "YO",
+			"Name": "AMANTARA SEKURITAS INDONESIA",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "ID",
+			"Name": "ANUGERAH SEKURITAS INDONESIA",
+			"Permit": "Perantara Pedagang Efek"
+		},
+		{
+			"Code": "SH",
+			"Name": "ARTHA SEKURITAS INDONESIA",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "DX",
+			"Name": "BAHANA SEKURITAS",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "BZ",
+			"Name": "BATAVIA PROSPERINDO SEKURITAS",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "SQ",
+			"Name": "BCA SEKURITAS",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "AR",
+			"Name": "BINAARTHA SEKURITAS",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "GA",
+			"Name": "BNC SEKURITAS INDONESIA",
+			"Permit": "Perantara Pedagang Efek"
+		},
+		{
+			"Code": "NI",
+			"Name": "BNI SEKURITAS",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "SA",
+			"Name": "BOSOWA SEKURITAS",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "RF",
+			"Name": "BUANA CAPITAL SEKURITAS",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "ZR",
+			"Name": "BUMIPUTERA SEKURITAS",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "YU",
+			"Name": "CIMB SEKURITAS INDONESIA",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "KI",
+			"Name": "CIPTADANA SEKURITAS ASIA",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "CG",
+			"Name": "CITIGROUP SEKURITAS INDONESIA",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "KZ",
+			"Name": "CLSA SEKURITAS INDONESIA",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "CS",
+			"Name": "CREDIT SUISSE SEKURITAS INDONESIA",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "OD",
+			"Name": "DANAREKSA SEKURITAS",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "PF",
+			"Name": "DANASAKTI SEKURITAS INDONESIA",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "II",
+			"Name": "DANATAMA MAKMUR SEKURITAS",
+			"Permit": "Manajer Investasi"
+		},
+		{
+			"Code": "BQ",
+			"Name": "DANPAC SEKURITAS",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "DP",
+			"Name": "DBS VICKERS SEKURITAS INDONESIA",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "DB",
+			"Name": "DEUTSCHE SEKURITAS INDONESIA",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "TX",
+			"Name": "DHANAWIBAWA SEKURITAS INDONESIA",
+			"Permit": "Manajer Investasi"
+		},
+		{
+			"Code": "TS",
+			"Name": "DWIDANA SAKTI SEKURITAS",
+			"Permit": "Perantara Pedagang Efek"
+		},
+		{
+			"Code": "ES",
+			"Name": "EKOKAPITAL SEKURITAS",
+			"Permit": "Perantara Pedagang Efek"
+		},
+		{
+			"Code": "MK",
+			"Name": "Equator Sekuritas Indonesia",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "BS",
+			"Name": "EQUITY SEKURITAS INDONESIA",
+			"Permit": "Manajer Investasi"
+		},
+		{
+			"Code": "AO",
+			"Name": "ERDIKHA ELIT SEKURITAS",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "EL",
+			"Name": "EVERGREEN SEKURITAS INDONESIA",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "PC",
+			"Name": "FAC SEKURITAS INDONESIA",
+			"Permit": "Perantara Pedagang Efek"
+		},
+		{
+			"Code": "FO",
+			"Name": "FORTE GLOBAL SEKURITAS",
+			"Permit": "Perantara Pedagang Efek"
+		},
+		{
+			"Code": "AF",
+			"Name": "HARITA KENCANA SEKURITAS",
+			"Permit": "Perantara Pedagang Efek"
+		},
+		{
+			"Code": "HP",
+			"Name": "HENAN PUTIHRAI SEKURITAS",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "GW",
+			"Name": "HSBC SEKURITAS INDONESIA",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "SC",
+			"Name": "IMG SEKURITAS",
+			"Permit": "Perantara Pedagang Efek"
+		},
+		{
+			"Code": "IU",
+			"Name": "INDO CAPITAL SEKURITAS",
+			"Permit": "Perantara Pedagang Efek"
+		},
+		{
+			"Code": "BD",
+			"Name": "INDO MITRA SEKURITAS",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "PD",
+			"Name": "INDO PREMIER SEKURITAS",
+			"Permit": "Manajer Investasi"
+		},
+		{
+			"Code": "IP",
+			"Name": "INDOSURYA BERSINAR SEKURITAS",
+			"Permit": "Manajer Investasi"
+		},
+		{
+			"Code": "BF",
+			"Name": "INTI FIKASA SEKURITAS",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "IT",
+			"Name": "INTI TELADAN SEKURITAS",
+			"Permit": "Perantara Pedagang Efek"
+		},
+		{
+			"Code": "IN",
+			"Name": "INVESTINDO NUSANTARA SEKURITAS",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "BK",
+			"Name": "J.P. MORGAN SEKURITAS INDONESIA",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "YB",
+			"Name": "JASA UTAMA CAPITAL SEKURITAS",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "HD",
+			"Name": "KGI SEKURITAS INDONESIA",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "AG",
+			"Name": "KIWOOM SEKURITAS INDONESIA",
+			"Permit": "Perantara Pedagang Efek"
+		},
+		{
+			"Code": "KS",
+			"Name": "Kresna Sekuritas",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "YJ",
+			"Name": "LOTUS ANDALAN SEKURITAS",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "RX",
+			"Name": "MACQUARIE SEKURITAS INDONESIA",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "KW",
+			"Name": "MADANI SEKURITAS INDONESIA",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "PI",
+			"Name": "MAGENTA KAPITAL SEKURITAS INDONESIA",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "XL",
+			"Name": "MAHAKARYA ARTHA SEKURITAS",
+			"Permit": "Perantara Pedagang Efek"
+		},
+		{
+			"Code": "GI",
+			"Name": "MAHASTRA ANDALAN SEKURITAS",
+			"Permit": "Perantara Pedagang Efek"
+		},
+		{
+			"Code": "DD",
+			"Name": "MAKINDO SEKURITAS",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "CC",
+			"Name": "MANDIRI SEKURITAS",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "DM",
+			"Name": "MASINDO ARTHA SEKURITAS",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "ZP",
+			"Name": "MAYBANK KIM ENG SECURITIES",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "CD",
+			"Name": "MEGA CAPITAL SEKURITAS",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "ML",
+			"Name": "MERRILL LYNCH SEKURITAS INDONESIA",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "MU",
+			"Name": "MINNA PADI INVESTAMA SEKURITAS TBK",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "YP",
+			"Name": "MIRAE ASSET SEKURITAS INDONESIA",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "EP",
+			"Name": "MNC SEKURITAS",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "MS",
+			"Name": "MORGAN STANLEY SEKURITAS INDONESIA",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "OK",
+			"Name": "NET SEKURITAS",
+			"Permit": "Perantara Pedagang Efek"
+		},
+		{
+			"Code": "XA",
+			"Name": "NH KORINDO SEKURITAS INDONESIA",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "RB",
+			"Name": "NIKKO SEKURITAS INDONESIA",
+			"Permit": "Manajer Investasi"
+		},
+		{
+			"Code": "RO",
+			"Name": "NISP SEKURITAS",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "FG",
+			"Name": "NOMURA SEKURITAS INDONESIA",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "TP",
+			"Name": "OCBC Sekuritas Indonesia",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "FM",
+			"Name": "ONIX SEKURITAS",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "AD",
+			"Name": "OSO SEKURITAS INDONESIA",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "IH",
+			"Name": "PACIFIC 2000 SEKURITAS",
+			"Permit": "Perantara Pedagang Efek"
+		},
+		{
+			"Code": "AP",
+			"Name": "PACIFIC SEKURITAS INDONESIA",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "PG",
+			"Name": "PANCA GLOBAL SECURITIES TBK.",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "GR",
+			"Name": "PANIN SEKURITAS TBK.",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "PS",
+			"Name": "PARAMITRA ALFA SEKURITAS",
+			"Permit": "Manajer Investasi"
+		},
+		{
+			"Code": "KK",
+			"Name": "PHILLIP SEKURITAS INDONESIA",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "AT",
+			"Name": "PHINTRACO SEKURITAS",
+			"Permit": "Perantara Pedagang Efek"
+		},
+		{
+			"Code": "PO",
+			"Name": "PILARMAS INVESTINDO SEKURITAS",
+			"Permit": "Perantara Pedagang Efek"
+		},
+		{
+			"Code": "QA",
+			"Name": "POOL ADVISTA SEKURITAS",
+			"Permit": "Perantara Pedagang Efek"
+		},
+		{
+			"Code": "PK",
+			"Name": "PRATAMA CAPITAL SEKURITAS",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "XC",
+			"Name": "PRIMASIA UNGGUL SEKURITAS",
+			"Permit": "Perantara Pedagang Efek"
+		},
+		{
+			"Code": "RG",
+			"Name": "PROFINDO SEKURITAS INDONESIA",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "LK",
+			"Name": "RECAPITAL SEKURITAS INDONESIA",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "LS",
+			"Name": "RELIANCE SEKURITAS INDONESIA TBK.",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "DR",
+			"Name": "RHB Sekuritas Indonesia",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "LH",
+			"Name": "ROYAL INVESTIUM SEKURITAS",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "IF",
+			"Name": "SAMUEL SEKURITAS INDONESIA",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "MG",
+			"Name": "SEMESTA INDOVEST SEKURITAS",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "AH",
+			"Name": "SHINHAN SEKURITAS INDONESIA",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "DH",
+			"Name": "SINARMAS SEKURITAS",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "SM",
+			"Name": "SINERGI MILLENIUM SEKURITAS",
+			"Permit": "Perantara Pedagang Efek"
+		},
+		{
+			"Code": "AZ",
+			"Name": "SUCOR SEKURITAS",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "SS",
+			"Name": "SUPRA SEKURITAS INDONESIA",
+			"Permit": "Perantara Pedagang Efek"
+		},
+		{
+			"Code": "LG",
+			"Name": "TRIMEGAH SEKURITAS INDONESIA TBK.",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "BR",
+			"Name": "TRUST SEKURITAS",
+			"Permit": "Perantara Pedagang Efek"
+		},
+		{
+			"Code": "AK",
+			"Name": "UBS SEKURITAS INDONESIA",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "TF",
+			"Name": "UNIVERSAL BROKER INDONESIA SEKURITAS",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "AI",
+			"Name": "UOB KAY HIAN SEKURITAS",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "CP",
+			"Name": "VALBURY SEKURITAS INDONESIA",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "DU",
+			"Name": "VARIA INTI SEKURITAS",
+			"Permit": "Perantara Pedagang Efek"
+		},
+		{
+			"Code": "MI",
+			"Name": "VICTORIA SEKURITAS INDONESIA",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "AN",
+			"Name": "WANTEG SEKURITAS",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "FZ",
+			"Name": "WATERFRONT SEKURITAS INDONESIA",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "FS",
+			"Name": "YUANTA SEKURITAS INDONESIA",
+			"Permit": "Penjamin Emisi Efek"
+		},
+		{
+			"Code": "RS",
+			"Name": "YULIE SEKURITAS INDONESIA TBK.",
+			"Permit": "Penjamin Emisi Efek"
+		}
+	]
+}

@@ -1,0 +1,16 @@
+---
+- name: Update the apt cache
+  package: update_cache=yes cache_valid_time=3600
+
+- name: Upgrade the apt packages
+  package: upgrade=safe
+
+- name: Install the apt common libs and packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - fail2ban
+    - git-core
+    - redis-server
+    - ufw

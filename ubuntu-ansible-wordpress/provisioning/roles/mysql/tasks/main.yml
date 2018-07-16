@@ -1,0 +1,30 @@
+---
+- name: MySQL - Install version 5.7
+  package: name={{item}} state=present
+  with_items:
+    - mysql-server-5.7
+- name: MySQL - Generate new root password
+  command: openssl rand -hex 7 creates=/root/.my.cnf
+  register: mysql_new_root_pass
+- name: MySQL - Remove anonymous users
+  mysql_user: name="" state=absent
+  when: mysql_new_root_pass.changed
+- name: MySQL - Remove test database
+  mysql_db: name=test state=absent
+  when: mysql_new_root_pass.changed
+- name: MySQL - Update root password
+  mysql_user: name=root host={{item}} password={{mysql_new_root_pass.stdout}}
+  with_items:
+    - "{{ ansible_hostname }}"
+    - 127.2.0.1
+    - ::1
+    - localhost
+  when: mysql_new_root_pass.changed
+- name: MySQL - Output new root password
+  debug: msg="New root password is {{mysql_new_root_pass.stdout}}"
+  when: mysql_new_root_pass.changed
+- debug: msg="No change to root password"
+  when: not mysql_new_root_pass.changed
+- name: MySQL - Create my.cnf
+  template: src=templates/mysql/my.cnf dest=/root/.my.cnf
+  when: mysql_new_root_pass.changed

@@ -1,0 +1,57 @@
+require 'yaml'
+require 'ipaddr'
+
+machineConfig = YAML.load_file('bootstrap/machine-config.yml')
+
+ANSIBLE_DEFAULT_PLAYBOOK = "bootstrap/deploy-keys.yml"
+ANSIBLE_INVENTORY_DIR = 'provisioning/hosts-dev.ini'
+CONFIG_OBJECT_VERSION = "2"
+
+Vagrant.configure(CONFIG_OBJECT_VERSION) do |config|
+
+  (0..machineConfig.length-1).each do |vm|
+    vm_name  = machineConfig[vm]['name']
+    box_name  = machineConfig[vm]['box']
+    url    = machineConfig[vm]['url']
+    ip     = machineConfig[vm]['ip']
+    nodes  = machineConfig[vm]['nodes']  ? machineConfig[vm]['nodes']  : 1
+    memory = machineConfig[vm]['memory'] ? machineConfig[vm]['memory'] : 1024
+    cpus   = machineConfig[vm]['cpus']   ? machineConfig[vm]['cpus']   : 1
+
+    (1..nodes).each do |n|
+      name = "#{vm_name}#{n}"
+
+      ## Configure node
+      config.vm.define name do |cfg|
+        # Comment download_inseure, if you didn't found any OPENSSL errors
+        cfg.vm.box_download_insecure = true
+        cfg.vm.box_url = url
+        cfg.vm.box = box_name
+        cfg.vm.host_name = name
+
+        ## Comment public network to disable bridge
+        cfg.vm.network :public_network
+        cfg.vm.network :private_network, ip: ip
+        cfg.ssh.forward_agent = true
+
+        cfg.vm.provider "virtualbox" do |vb|
+          vb.gui = false
+          vb.memory = memory
+          vb.cpus = cpus
+        end
+
+        ## Ansible provisioning
+        cfg.vm.provision :ansible do |ansible|
+          ansible.playbook = ANSIBLE_DEFAULT_PLAYBOOK
+          ansible.inventory_path = ANSIBLE_INVENTORY_DIR
+          ## Enable debugging
+          ansible.verbose =  true
+          ansible.verbose="vvvvv"
+        end
+
+        # Increase the ip address range for next node
+        ip = IPAddr.new(ip).succ.to_s
+      end
+    end
+  end
+end

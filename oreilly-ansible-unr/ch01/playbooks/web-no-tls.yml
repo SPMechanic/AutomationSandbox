@@ -1,0 +1,24 @@
+---
+# This playbook install nginx in server
+- name: Configure server with nginx
+  hosts: webservers
+  become: True
+  become_method: sudo
+
+  tasks:
+    - name: Install nginx
+      package: name=nginx update_cache=yes
+
+    - name: Copy nginx.conf file as default configuration
+      copy: src=files/nginx.conf dest=/etc/nginx/sites-available/default
+
+    - name: Enable nginx configuration
+      file: >
+        dest=/etc/nginx/sites-enabled/default src=/etc/nginx/sites-available/default
+        state=link
+
+    - name: Copy index.html file as default front-page
+      template: src=templates/index.html.j2 dest=/usr/share/nginx/html/index.html mode=0644
+
+    - name: Restart nginx
+      service: name=nginx state=restarted

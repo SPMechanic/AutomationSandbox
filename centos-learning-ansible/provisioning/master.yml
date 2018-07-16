@@ -1,0 +1,3 @@
+---
+- import_playbook: playbooks/group_vars/database.yml
+- import_playbook: playbooks/group_vars/web.yml

@@ -1,0 +1,52 @@
+require 'yaml'
+require 'ipaddr'
+
+machineConfig = YAML.load_file('machine-config.yml')
+
+CONFIG_OBJECT_VERSION = "2"
+
+Vagrant.configure(CONFIG_OBJECT_VERSION) do |config|
+
+  (0..machineConfig.length-1).each do |m|
+    vm_name  = machineConfig[m]['name']
+    url    = machineConfig[m]['url']
+    ip     = machineConfig[m]['ip']
+    nodes  = machineConfig[m]['nodes']  ? machineConfig[m]['nodes']  : 1
+    memory = machineConfig[m]['memory'] ? machineConfig[m]['memory'] : 1024
+    cpus   = machineConfig[m]['cpus']   ? machineConfig[m]['cpus']   : 2
+
+    (1..nodes).each do |n|
+      name = "#{vm_name}#{n}"
+
+      ## Configure node
+      config.vm.define name do |cfg|
+        cfg.vm.box_url = url
+        cfg.vm.box = name
+        cfg.vm.host_name = name
+
+        ## Comment public network to disable bridge
+        cfg.vm.network :public_network
+        cfg.vm.network :private_network, ip: ip
+        cfg.ssh.forward_agent = true
+
+        cfg.vm.provider "virtualbox" do |vb|
+          vb.gui = false
+          vb.memory = memory
+          vb.cpus = cpus
+        end
+
+        ## Ansible provisioning
+        cfg.vm.provision :ansible do |ansible|
+          ansible.playbook = "deploy-keys.yml"
+          ## Enable debugging
+          ansible.verbose =  true
+          ansible.verbose="vvvvv"
+        end
+
+        # Increase the ip address range for next node
+        ip = IPAddr.new(ip).succ.to_s
+      end
+
+    end
+  end
+end

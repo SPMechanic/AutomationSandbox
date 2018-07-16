@@ -1,0 +1,26 @@
+---
+# This playbook update packages and deploys ssh keys
+# that are under user directory to the vagrant box
+- name: Default SSH-Keys Provisioning
+  hosts: all
+  gather_facts: false
+  become: true
+  become_method: sudo
+  vars:
+    localuser: "{{ lookup('ENV','USER') }}"
+
+  tasks:
+    - name: Create same local user
+      user:
+        name="{{localuser}}"
+        home="/home/{{localuser}}"
+        shell="/bin/bash"
+        append="true"
+        group="admin"
+        comment="{{localuser}}"
+
+    - name: Set up authorized_key
+      authorized_key:
+        key="{{lookup('file', '~/.ssh/id_rsa.pub')}}"
+        user="{{localuser}}"
+        manage_dir=yes

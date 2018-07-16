@@ -1,0 +1,8 @@
+---
+  - name: "vagrant"
+    box: "ubuntu/trusty64"
+    url: "https://app.vagrantup.com/ubuntu/boxes/trusty64"
+    cpu: 1
+    memory: 512
+    ip:    192.168.100.101
+    nodes: 1

@@ -1,0 +1,25 @@
+---
+# This playbook update packages
+- name: Update OS and Install Python2
+  hosts: all
+  gather_facts: smart
+  become: true
+  become_method: sudo
+
+  pre_tasks:
+    - name: Test guest-vm for existence of python2 binaries
+      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+      changed_when: false
+
+  tasks:
+    - name: Update the apt cache
+      package: update_cache=yes cache_valid_time=3600
+
+    - name: Install python-pip
+      package: name={{item}} state=present
+      with_items:
+        - python-pip
+        - unzip
+
+    - name: Upgrade python-pip to latest version
+      pip: name=pip state=latest

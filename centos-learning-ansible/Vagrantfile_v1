@@ -1,0 +1,69 @@
+# -*- mode: ruby -*-
+# vim: ft=ruby
+
+# ---- Configuration variables ----
+
+# Hardware
+GUI               = false # Enable/Disable GUI
+RAM               = 1024   # Default memory size in MB
+
+# Network configuration
+DOMAIN            = ".fale.io"
+NETWORK           = "192.168.192."
+NETMASK           = "255.255.255.0"
+
+# Base VirtualBox OS
+BOX               = 'centos/7'
+
+HOSTS = {
+   "ws01" => [NETWORK+"21", RAM, GUI, BOX],
+   "ws02" => [NETWORK+"22", RAM, GUI, BOX],
+   "db01" => [NETWORK+"11", RAM, GUI, BOX],
+}
+
+ANSIBLE_INVENTORY_DIR = 'provisioning/hosts'
+
+# ---- Vagrant configuration ----
+
+Vagrant.configure(2) do |config|
+  # Copy the ssh keys to all of the vms
+  if File.exists?(File.expand_path("./keys/ansible_mac"))
+    config.vm.provision "file", source: "./keys/ansible_mac", destination: "~/.ssh/ansible_mac"
+  end
+  if File.exists?(File.expand_path("./keys/ansible_mac.pub"))
+    config.vm.provision "file", source: "./keys/ansible_mac.pub", destination: "~/.ssh/ansible_mac.pub"
+  end
+
+  HOSTS.each do | (name, cfg) |
+    ipaddr, ram, gui, box = cfg
+
+    config.vm.define name do |machine|
+      machoine.vm.box_download_insecure = true
+      machine.vm.box   = box
+      machine.vm.guest = :linux
+
+      machine.vm.provider "virtualbox" do |vbox|
+        vbox.gui    = gui
+        vbox.memory = ram
+        vbox.name = name
+        vbox.linked_clone = true
+      end
+
+      machine.vm.hostname = name + DOMAIN
+      machine.vm.network 'private_network', ip: ipaddr, netmask: NETMASK
+      machine.vm.network :forwarded_port, host: 80, guest: 80, auto_correct: true # website
+      machine.vm.network :forwarded_port, guest: 443, host: 443, auto_correct: true # ssl
+
+      machine.vm.provision :ansible do |ansible|
+        # Disable default limit to connect to all the machines
+        ansible.limit = "all"
+        ansible.verbose = "v"
+        ansible.inventory_path = ANSIBLE_INVENTORY_DIR
+        ansible.playbook = "provisioning/master.yml"
+        ansible.extra_vars = {
+          ansible_python_interpreter: "/usr/bin/python",
+        }
+      end #EoF ansible
+    end #EoF machine
+  end #EoF HOSTS.each
+end #EoF config

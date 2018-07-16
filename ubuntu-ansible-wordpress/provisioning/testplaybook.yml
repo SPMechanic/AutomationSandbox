@@ -1,0 +1,112 @@
+---
+- name : web01
+  hosts: all
+  become: true
+  gather_facts: false
+
+  pre_tasks:
+    - name: Pre - Install python2 for Ansible
+      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+      changed_when: false
+    - setup: # aka gather_facts
+
+  tasks:
+    - name: Repository - Add the ondrej PHP PPA repository
+      apt_repository: repo='ppa:ondrej/php'
+      tags:
+        - repository
+    - name: Repository - Update the apt cache
+      package: update_cache=yes cache_valid_time=3600
+      tags:
+        - repository
+    - name: Base - Install base packages
+      package: name={{item}} state=present
+      with_items:
+        - build-essential
+        - python-pip
+        - python3-pip
+        - python-dev
+        - python3-dev
+        - python-mysqldb
+        - python3-mysqldb
+        - libmysqlclient-dev
+        - unzip
+      tags:
+        - base
+    - name: Base - Upgrade python-pip
+      pip: name=pip state=latest
+      tags:
+        - base
+    - name: PHP - Install latest version
+      package: name={{item}} state=present
+      with_items:
+        - php
+        - php-fpm
+        - php-mysql
+        - php-xml
+    - name: PHP - Uninstall PHP-Apache2 (we gonna use NGINX)
+      package: name=apache2 state=absent
+    - name: MySQL - Install version 5.7
+      package: name={{item}} state=present
+      with_items:
+        - mysql-server-5.7
+    - name: MySQL - Generate new root password
+      command: openssl rand -hex 7 creates=/root/.my.cnf
+      register: mysql_new_root_pass
+    - name: MySQL - Remove anonymous users
+      mysql_user: name="" state=absent
+      when: mysql_new_root_pass.changed
+    - name: MySQL - Remove test database
+      mysql_db: name=test state=absent
+      when: mysql_new_root_pass.changed
+    - name: MySQL - Update root password
+      mysql_user: name=root host={{item}} password={{mysql_new_root_pass.stdout}}
+      with_items:
+        - "{{ ansible_hostname }}"
+        - 127.2.0.1
+        - ::1
+        - localhost
+      when: mysql_new_root_pass.changed
+    - name: MySQL - Output new root password
+      debug: msg="New root password is {{mysql_new_root_pass.stdout}}"
+      when: mysql_new_root_pass.changed
+    - debug: msg="No change to root password"
+      when: not mysql_new_root_pass.changed
+    - name: MySQL - Create my.cnf
+      template: src=templates/mysql/my.cnf dest=/root/.my.cnf
+      when: mysql_new_root_pass.changed
+    - name: Nginx - Install nginx
+      package: name=nginx state=present
+    - name: Nginx - Start nginx
+      service: name=nginx state=started
+    - name: Nginx - Create nginx config
+      template: src=templates/nginx/default dest=/etc/nginx/sites-available/default
+      notify: restart nginx
+    - name: WordPress - Copy wordpress.zip into tmp
+      copy: src=files/wordpress.zip dest=/tmp/wordpress.zip
+    - name: WordPress - Unzip Wordpress
+      unarchive: src=/tmp/wordpress.zip dest=/tmp copy=no creates=/tmp/wordpress/wp-settings.php
+    - name: WordPress - Create project folder
+      file: dest=/var/www/book.example.com state=directory
+    - name: WordPress - Copy WordPress files
+      command: cp -a /tmp/wordpress/. /var/www/book.example.com creates=/var/www/book.example.com/wp-settings.php
+    - name: WordPress - Create WordPress MySQL database
+      mysql_db: name=wordpress state=present
+    - name: WordPress - Create WordPress MySQL user
+      mysql_user: name=wordpress host=localhost password=bananas priv=wordpress.*:ALL
+    - name: WordPress - Create wp-config
+      template: src=templates/wordpress/wp-config.php dest=/var/www/book.example.com/wp-config.php
+    - name: WordPress - Does database exist?
+      command: mysql -u root wordpress -e "SELECT ID FROM wordpress.wp_users LIMIT 1;"
+      register: db_exist
+      ignore_errors: true
+      changed_when: false
+    - name: WordPress - Copy WordPress DB
+      copy: src=files/wp-database.sql dest=/tmp/wp-database.sql
+      when: db_exist.rc > 0
+    - name: WordPress - Import WordPress DB
+      mysql_db: target=/tmp/wp-database.sql state=import name=wordpress
+      when: db_exist.rc > 0
+  handlers:
+    - name: restart nginx
+      service: name=nginx state=restarted

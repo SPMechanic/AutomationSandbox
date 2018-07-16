@@ -1,0 +1,71 @@
+require 'yaml'
+require 'ipaddr'
+
+machineConfig = YAML.load_file('machine-config.yml')
+
+ANSIBLE_PLAYBOOK = 'starter.yml'
+ANSIBLE_INVENTORY = 'inventory'
+CONFIG_OBJECT_VERSION = '2'
+DOMAIN            = '.oreilly.lab'
+
+Vagrant.configure(CONFIG_OBJECT_VERSION) do |config|
+
+  (0..machineConfig.length-1).each do |vm|
+    vm_name  = machineConfig[vm]['name']
+    box_name  = machineConfig[vm]['box']
+    url    = machineConfig[vm]['url']
+    ip     = machineConfig[vm]['ip']
+    nodes  = machineConfig[vm]['nodes']  ? machineConfig[vm]['nodes']  : 1
+    memory = machineConfig[vm]['memory'] ? machineConfig[vm]['memory'] : 1024
+    cpus   = machineConfig[vm]['cpus']   ? machineConfig[vm]['cpus']   : 1
+
+    (1..nodes).each do |n|
+      name = "#{vm_name}#{n}" + DOMAIN
+
+      ## Configure node
+      config.vm.define name do |cfg|
+        # Comment download_inseure, if you didn't found any OPENSSL errors
+        #cfg.vm.box_download_insecure = true
+        cfg.vm.box_url = url
+        cfg.vm.box = box_name
+        cfg.vm.host_name = name
+
+        ## Comment public network to disable bridge
+        #cfg.vm.network :public_network
+        cfg.vm.network :private_network, ip: ip
+
+        ## Port Forwarding from Guest-VM to Host
+        cfg.vm.network :forwarded_port, guest: 80, host: 8080, auto_correct: true # website
+        cfg.vm.network :forwarded_port, guest: 443, host: 8443, auto_correct: true # ssl
+
+        ## Guest-VM SSH Port Forwarding, default to 2222
+        #cfg.vm.network :forwarded_port, guest: 22, host: 22, auto_correct: true # ssh
+        cfg.ssh.forward_agent = true
+
+        cfg.vm.provider "virtualbox" do |vb|
+          vb.name = name
+          vb.gui = false
+          vb.memory = memory
+          vb.cpus = cpus
+          vb.linked_clone = false
+        end
+
+        ## Ansible provisioning
+        cfg.vm.provision :ansible do |ansible|
+          ansible.playbook = ANSIBLE_PLAYBOOK
+          ansible.inventory_path = ANSIBLE_INVENTORY
+          ## Enable debugging
+          ansible.verbose =  false
+          ansible.verbose="v"
+          ## Use spesific Python version in Guest-VM, for Ansible
+          ansible.extra_vars = {
+            ansible_python_interpreter: '/usr/bin/python3',
+          }
+        end
+
+        # Increase the ip address range for next node
+        ip = IPAddr.new(ip).succ.to_s
+      end
+    end
+  end
+end

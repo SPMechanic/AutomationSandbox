@@ -1,0 +1,16 @@
+---
+  - name: "web"
+    box: "centos/7"
+    url: "https://app.vagrantup.com/centos/boxes/7"
+    cpu: 1
+    memory: 1024
+    ip:    192.168.50.150
+    nodes: 2
+
+  - name: "db"
+    box: "centos/7"
+    url: "https://app.vagrantup.com/centos/boxes/7"
+    cpu:  1
+    memory: 1024
+    ip: 192.168.70.150
+    nodes: 1
